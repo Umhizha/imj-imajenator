@@ -101,7 +101,6 @@ function user_registered($user) {
  *  Function for formatting rest api date 
  *  Change "post" to the post type on which you want this to appear
  *  Repeat for all your desired post types
- * 
  */
 add_action('rest_api_init', 'add_rest_date_function');
 
@@ -127,8 +126,22 @@ function add_rest_date_function() {
             'schema'          => null,
         )
     );
+
+     register_rest_field(
+        array('post'),
+        'uptoweek_ago',
+        array(
+            'get_callback'    => 'altered_post_time_ago_function'
+            'update_callback' => null,
+            'schema'          => null,
+        )
+    );
 }
 
 function my_post_time_ago_function() {
 return sprintf( esc_html__( '%s ago', 'textdomain' ), human_time_diff(get_the_time ( 'U' ), current_time( 'timestamp' ) ) );
+}
+
+function altered_post_time_ago_function() {
+return ( get_the_time('U') >= strtotime('-1 week') ) ? sprintf( esc_html__( '%s ago', 'textdomain' ), human_time_diff( get_the_time ( 'U' ), current_time( 'timestamp' ) ) ) : get_the_date();
 }
