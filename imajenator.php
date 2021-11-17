@@ -131,7 +131,7 @@ function add_rest_date_function() {
         array('post'),
         'uptoweek_ago',
         array(
-            'get_callback'    => 'altered_post_time_ago_function'
+            'get_callback'    => 'altered_post_time_ago_function',
             'update_callback' => null,
             'schema'          => null,
         )
@@ -139,9 +139,9 @@ function add_rest_date_function() {
 }
 
 function my_post_time_ago_function() {
-return sprintf( esc_html__( '%s ago', 'textdomain' ), human_time_diff(get_the_time ( 'U' ), current_time( 'timestamp' ) ) );
+    return sprintf( esc_html__( '%s ago', 'textdomain' ), human_time_diff(get_the_time ( 'U' ), current_time( 'timestamp' ) ) );
 }
 
 function altered_post_time_ago_function() {
-return ( get_the_time('U') >= strtotime('-1 week') ) ? sprintf( esc_html__( '%s ago', 'textdomain' ), human_time_diff( get_the_time ( 'U' ), current_time( 'timestamp' ) ) ) : get_the_date();
+    return ( get_the_time('U') >= strtotime('-1 week') ) ? sprintf( esc_html__( '%s ago', 'textdomain' ), human_time_diff( get_the_time ( 'U' ), current_time( 'timestamp' ) ) ) : get_the_date();
 }
