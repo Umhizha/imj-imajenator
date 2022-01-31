@@ -590,7 +590,7 @@ function do_enroll( $course_id = 0, $order_id = 0, $user_id = 0 ) {
 			}
 
 			//Mark Current User as Students with user meta data
-			update_user_meta( $user_id, '_is_tutor_student', tutor_time() );
+			update_user_meta( $user_id, '_is_tutor_student', tutorr_time() );
 
 			if ( $order_id ) {
 				//Mark order for course and user
@@ -712,7 +712,7 @@ function quiz_with_settings($topic_id) {
 		return $response;
 	}
 
-function tutor_time() {
+function tutorr_time() {
         //return current_time( 'timestamp' );
         return time() + (get_option('gmt_offset') * HOUR_IN_SECONDS);
 }
